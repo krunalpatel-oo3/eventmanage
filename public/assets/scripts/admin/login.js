@@ -6,9 +6,13 @@ $(document).ready(function(){
 				required: true,
 				email: true,
 				remote: {
-					url:'',
+					url:  "<?php echo URL::to('restaurants/20'); ?>",
 					type:'post',
-					
+					data:{
+						email: function(){
+							return
+						}
+					}
 				},
 			},
 			password:{
