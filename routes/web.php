@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/admin/login', function(){
 	return view('login_page');
 });
+/* Admins Url */
+Route::get('admin/login','adminpanel@index')->name('admin.login_page');
+Route::post('admin/email_exist','adminpanel@email_exist')->name('admin.email_exist');

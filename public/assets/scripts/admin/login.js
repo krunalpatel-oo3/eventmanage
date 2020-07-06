@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	 var _token = $("input[name='_token']").val();
 	/* Jquery validate */
 	$('#form_login').validate({
 		rules:{
@@ -6,17 +7,21 @@ $(document).ready(function(){
 				required: true,
 				email: true,
 				remote: {
-					url:  "<?php echo URL::to('restaurants/20'); ?>",
+					url:  $('input[name="email_exist_url"]').val(),
 					type:'post',
 					data:{
-						email: function(){
-							return
-						}
-					}
+						_token :$('meta[name="csrf-token"]').attr('content')
+					},
+
 				},
 			},
 			password:{
 				required: true,
+			}
+		},
+		messages: {
+			email :{
+				remote : "Please eneter valid email add",
 			}
 		}
 	});

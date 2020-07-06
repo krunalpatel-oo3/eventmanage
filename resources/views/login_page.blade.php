@@ -8,6 +8,7 @@
 		<meta name="description" content="Dashlead -  Admin Panel HTML Dashboard Template">
 		<meta name="author" content="Spruko Technologies Private Limited">
 		<meta name="keywords" content="sales dashboard, admin dashboard, bootstrap 4 admin template, html admin template, admin panel design, admin panel design, bootstrap 4 dashboard, admin panel template, html dashboard template, bootstrap admin panel, sales dashboard design, best sales dashboards, sales performance dashboard, html5 template, dashboard template">
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		<!-- Favicon -->
 		<link rel="icon" href="{{ URL::asset('assets/img/brand/favicon.ico') }}" type="image/x-icon"/>
 
@@ -63,7 +64,8 @@
 					</div>
 					<div class="card custom-card">
 						<div class="card-body">
-							<form method="post" id="form_login">
+							<form method="post" id="form_login" action="{{ URL::route('admin.login_page') }}">
+								{{ csrf_field() }}
 								<h4 class="text-center">Signin to Your Account</h4>
 								<form>
 									<div class="form-group text-left">
@@ -79,6 +81,7 @@
 								<div class="mt-3 text-center">
 									<p class="mb-1"><a href="#">Forgot password?</a></p>
 									<!-- <p class="mb-0">Don't have an account? <a href="signup.html">Create an Account</a></p> -->
+									<input type="text" name="email_exist_url" value="{{ route('admin.email_exist') }}">
 								</div>
 							</form>
 						</div>
