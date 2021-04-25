@@ -29,7 +29,7 @@
 
 		<!---Falg-icons css-->
 		<link href="{{ URL::asset('assets/plugins/flag-icon-css/css/flag-icon.min.css') }}" rel="stylesheet">
-
+		
 		<!---Style css-->
 		<link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet">
 		<link href="{{ URL::asset('assets/css/custom-style.css') }}" rel="stylesheet">
@@ -37,9 +37,19 @@
 		<link href="{{ URL::asset('assets/css/dark-style.css') }}" rel="stylesheet">
 		<link href="{{ URL::asset('assets/css/custom-dark-style.css') }}" rel="stylesheet">
 		<link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
+		<style type="text/css">
+			.field-icon {
+			  float: right;
+			  margin-left: -25px;
+			  margin-top: -25px;
+			  position: relative;
+			  z-index: 2;
+			  cursor: pointer;
+			  font-size: 16px;
+			}
+		</style>
 		<script type="text/javascript">
 			var base_url =  {!! json_encode(url('/')) !!}
-			console.log(base_url);
 		</script>
 		
 	</head>
@@ -64,7 +74,7 @@
 					</div>
 					<div class="card custom-card">
 						<div class="card-body">
-							<form method="post" id="form_login" action="{{ URL::route('admin.login_page') }}">
+							<form method="post" id="form_login" action="{{ URL::route('admin.login_process') }}">
 								{{ csrf_field() }}
 								<h4 class="text-center">Signin to Your Account</h4>
 								<form>
@@ -74,14 +84,15 @@
 									</div>
 									<div class="form-group text-left">
 										<label>Password</label>
-										<input name="password" class="form-control" placeholder="Enter your password" type="password">
+										<input name="password" class="form-control" id="password-field" placeholder="Enter your password" type="password">
+										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 									</div>
 									<button class="btn ripple btn-main-primary btn-block">Sign In</button>
 								</form>
 								<div class="mt-3 text-center">
 									<p class="mb-1"><a href="#">Forgot password?</a></p>
 									<!-- <p class="mb-0">Don't have an account? <a href="signup.html">Create an Account</a></p> -->
-									<input type="text" name="email_exist_url" value="{{ route('admin.email_exist') }}">
+									<input type="hidden" name="email_exist_url" value="{{ route('admin.email_exist') }}">
 								</div>
 							</form>
 						</div>
@@ -116,3 +127,18 @@
 
 	</body>
 </html>
+<!-- Toastr  -->
+<!-- <link href="{{ URL::asset('assets/plugins/toastr/toastr.css') }}" rel="stylesheet"/> -->
+<script src="{{ URL::asset('assets/plugins/toaster/jquery.toaster.js') }}"></script>
+<script type="text/javascript">
+	$(".toggle-password").click(function() {
+	  $(this).toggleClass("fa-eye fa-eye-slash");
+	  var input = $($(this).attr("toggle"));
+	  
+	  if (input.attr("type") == "password") {
+	    input.attr("type", "text");
+	  } else {
+	    input.attr("type", "password");
+	  }
+	});
+</script>

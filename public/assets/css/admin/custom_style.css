@@ -1,0 +1,14 @@
+.error{
+	color: red;
+}
+.cust_img{
+	width: 100%;
+    height: 80%;
+    object-fit: contain;
+}
+.cust_cursor{
+	cursor: pointer !important;
+}
+.jconfirm-title, .jconfirm-content{
+	color: black;
+}

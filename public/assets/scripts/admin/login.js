@@ -21,8 +21,52 @@ $(document).ready(function(){
 		},
 		messages: {
 			email :{
-				remote : "Please eneter valid email add",
+				remote : "Invalid email address.",
 			}
+		},
+		submitHandler:function(form, e){
+			
+			console.log('Form submitted');
+			loginProcess(form);
 		}
 	});
 });
+/* code for login process for super admin */
+$(document).ready(function(){
+});
+function loginProcess(form){
+	
+	var email    = $('input[name="email"]').val();
+	var password = $('input[name="password"]').val();
+	
+	$.ajax({
+		url:$('#form_login').attr('action'),
+		type:'POST',
+		data:{
+			_token :$('meta[name="csrf-token"]').attr('content'),
+			email: email,
+			password:password
+		},
+		dataType:"JSON",
+		beforeSend: function(){
+			console.log('beforeSend');
+			$('.btn-block').attr('disabled', true);
+		},
+		success:function(data){
+			if(data.status == 'true'){
+				$.toaster({ priority :'success', title :'success', message :data.message, 'timeout': 2500});
+				setTimeout(function(){
+					window.location.href = base_url + '/admin/dashboard'
+				});
+
+			}else if(data.status == 'false'){
+				console.log(data);
+				$.toaster({ priority :'success', title :'Warning', message :data.message, 'timeout': 2500});
+				$('.btn-block').attr('disabled', false);
+			}else{
+				location.reload();
+			}
+		}
+	});
+
+}
